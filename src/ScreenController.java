@@ -4,12 +4,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by roi on 16/06/16.
@@ -117,8 +116,6 @@ public class ScreenController {
             }
         });
 
-
-
         dmlQueryRadioBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -208,37 +205,24 @@ public class ScreenController {
             }
         });
 
-
-        /*final DBClient dbc = new DBClient();
-    public void initialize() throws Exception {
-        final DBClient dbc = new DBClient();
-        //DDL
-        ddlSendBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    dbc.sendDDLQuery(ddlQueryTxt.getText());
-                    ddlAnswerTxt.setText("Success");
-                }
-                catch (Exception e) {
-                    ddlAnswerTxt.setText("Failed");
-                }
-            }
-        });
-        dmlSendBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    String answer = dbc.sendDMLQuery(dmlQueryTxt.getText());
-                    dmlAnswerTxt.setText(answer);
-                }
-                catch (Exception e) {
-                    dmlAnswerTxt.setText("Failed");
-                }
-            }
-        });
-*/
-
     }
 
+        public void executeScript(DBClient dbc){
+        try {
+            if(!ddlFileChooserTxt.getText().isEmpty()){
+                File script = new File(ddlFileChooserTxt.getText());
+                List<String> commands = dbc.readScriptFromFile(script);
+                int size = commands.size();
+                for(int i =0; i<size ; i++)
+                    dbc.sendDDLQuery(commands.get(i));
+                ddlAnswerTxt.setText("Success");
+            }
+        }
+        catch (Exception e){
+            ddlAnswerTxt.setText("Failed");
+        }
+    }
+
+
 }
+

@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.IOException;
+
 
 /**
  * Created by roi on 16/06/16.
@@ -21,7 +21,7 @@ public class Screen extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Screen.fxml"));
         ScreenController controller = new ScreenController(primaryStage);
         loader.setController(controller);
-        Parent root = loader.load();
+        Parent root = (Parent) loader.load();
         primaryStage.setTitle("DB-Project");
         primaryStage.initStyle(StageStyle.DECORATED);
         Scene scene = new Scene(root, 700, 350);
