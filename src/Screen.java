@@ -17,7 +17,7 @@ public class Screen extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Screen.fxml"));
         ScreenController controller = new ScreenController(primaryStage);
         loader.setController(controller);

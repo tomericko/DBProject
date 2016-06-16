@@ -210,6 +210,9 @@ public class ScreenController {
 
 
         /*final DBClient dbc = new DBClient();
+    public void initialize() throws Exception {
+        final DBClient dbc = new DBClient();
+        //DDL
         ddlSendBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {

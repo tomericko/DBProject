@@ -4,11 +4,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
+import java.sql.*;
 
 /* Present a DB client who connects to server (detailed by conf file),
  * sends queries to the server and replies the server result */
@@ -90,8 +86,8 @@ public class DBClient {
 
         try {
             // send DML query to DB server and get result
-            output = dbClient.sendDMLQuery("SELECT * from students");
-        } catch (Exception e) {
+            output = dbClient.sendDMLQuery("SELECT * from studen");
+        } catch (SQLException e) {
             output = "#" + e.toString();
         }
 
@@ -100,7 +96,7 @@ public class DBClient {
         try {
             // send DML query to DB server and get result
             output = dbClient.sendDMLQuery("SELECT name, age from students");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             output = "#" + e.toString();
         }
 
