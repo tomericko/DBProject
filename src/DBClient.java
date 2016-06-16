@@ -46,7 +46,7 @@ public class DBClient {
         ResultSet resultSet = statement.executeQuery(query);
         ResultSetMetaData rsmd = resultSet.getMetaData();
 
-		/* set result String */
+		/* set result Strin */
 
         String result = "";
         int columnsNumber = rsmd.getColumnCount();
@@ -84,7 +84,7 @@ public class DBClient {
 
         // send DDL query to update server's DB
         dbClient.sendDDLQuery(
-                "INSERT INTO students (name, phone, id, age) VALUES ('ben', 0586182323, 203617884, 18)");
+                "INSERT INTO students (name, phone, id, age) VALUES ('tom', 058111111, 2031111111, 24)");
 
         String output = null;
 
