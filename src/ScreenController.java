@@ -66,7 +66,7 @@ public class ScreenController {
 
 
     @FXML
-    void initialize() {
+    void initialize() throws Exception {
         final ToggleGroup ddlTg = new ToggleGroup();
         ddlFileRadioBtn.setToggleGroup(ddlTg);
         ddlQueryRadioBtn.setToggleGroup(ddlTg);
@@ -205,7 +205,39 @@ public class ScreenController {
             }
         });
 
-    }
+        final DBClient dbc = new DBClient();
+        //DDL
+        ddlSendBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ddlFileRadioBtn.isSelected()) {
+                    executeScript(dbc);
+                } else {
+                    try {
+                        dbc.sendDDLQuery(ddlQueryTxt.getText());
+                        ddlAnswerTxt.setText("Success");
+                    } catch (Exception e) {
+                        ddlAnswerTxt.setText("Failed");
+                    }
+                }
+
+            }
+        });
+        //DML
+        dmlSendBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    String answer = dbc.sendDMLQuery(dmlQueryTxt.getText());
+                    dmlAnswerTxt.setText(answer);
+                } catch (Exception e) {
+                    dmlAnswerTxt.setText("Failed");
+                }
+            }
+        });
+
+
+}
 
         public void executeScript(DBClient dbc){
         try {

@@ -74,36 +74,7 @@ public class DBClient {
 
         statement.executeUpdate(query);
     }
-/*
 
-    public static void main(String[] args) throws Exception {
-
-        DBClient dbClient = new DBClient();
-
-        // send DDL query to update server's DB
-        dbClient.sendDDLQuery(
-                "INSERT INTO students (name, phone, id, age) VALUES ('tom', 058111111, 2031111111, 24)");
-
-        String output = null;
-
-        try {
-            // send DML query to DB server and get result
-            output = dbClient.sendDMLQuery("SELECT * from studen");
-        } catch (SQLException e) {
-            output = "#" + e.toString();
-        }
-
-        System.out.println(output);
-
-        try {
-            // send DML query to DB server and get result
-            output = dbClient.sendDMLQuery("SELECT name, age from students");
-        } catch (SQLException e) {
-            output = "#" + e.toString();
-        }
-
-        System.out.println(output);
-    }*/
 
 
     public List<String> readScriptFromFile(File file){
