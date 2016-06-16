@@ -45,4 +45,16 @@ public class readScript {
         }
         return commands;
     }
+    public static void main(String[] args) throws Exception {
+        File test = new File("test.txt");
+        readScript rs = new readScript();
+        List<String> commands = rs.readScriptFromFile(test);
+        int arrayListSize = commands.size();
+        for(int i = 0; i < arrayListSize; i++)
+        {
+            System.out.println(commands.get(i));
+        }
+    }
 }
+
+

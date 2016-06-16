@@ -1,8 +1,10 @@
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Created by roi on 16/06/16.
@@ -53,5 +55,40 @@ public class ScreenController {
 
     @FXML
     Button dmlSendBtn;
+
+    @FXML
+    TextField ddlAnswerTxt;
+
+    @FXML
+    TextField dmlAnswerTxt;
+
+    @FXML
+    public void initialize() throws Exception {
+        final DBClient dbc = new DBClient();
+        ddlSendBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    dbc.sendDDLQuery(ddlQueryTxt.getText());
+                    ddlAnswerTxt.setText("Success");
+                }
+                catch (Exception e) {
+                    ddlAnswerTxt.setText("Failed");
+                }
+            }
+        });
+        dmlSendBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    String answer = dbc.sendDMLQuery(dmlQueryTxt.getText());
+                    dmlAnswerTxt.setText(answer);
+                }
+                catch (Exception e) {
+                    dmlAnswerTxt.setText("Failed");
+                }
+            }
+        });
+    }
 
 }
