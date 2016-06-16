@@ -1,3 +1,3 @@
-jdbc:mysql://db4free.net:3306/tora2016
+jdbc:mysql://db4free.net:3306/tora
 tora2016
 tora2016
