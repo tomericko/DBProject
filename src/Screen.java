@@ -19,7 +19,6 @@ public class Screen extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Screen.fxml"));
-        //loader.setController(new ScreenController());
         Parent root = loader.load(getClass().getResource("Screen.fxml"));
         primaryStage.setTitle("DB-Project");
         primaryStage.initStyle(StageStyle.DECORATED);

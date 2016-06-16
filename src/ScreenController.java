@@ -6,6 +6,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by roi on 16/06/16.
  */
@@ -69,13 +74,17 @@ public class ScreenController {
         ddlSendBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                try {
-                    dbc.sendDDLQuery(ddlQueryTxt.getText());
-                    ddlAnswerTxt.setText("Success");
+                if (ddlFileRadioBtn.isSelected()) {
+                    executeScript(dbc);
+                } else {
+                    try {
+                        dbc.sendDDLQuery(ddlQueryTxt.getText());
+                        ddlAnswerTxt.setText("Success");
+                    } catch (Exception e) {
+                        ddlAnswerTxt.setText("Failed");
+                    }
                 }
-                catch (Exception e) {
-                    ddlAnswerTxt.setText("Failed");
-                }
+
             }
         });
         //DML
@@ -85,12 +94,28 @@ public class ScreenController {
                 try {
                     String answer = dbc.sendDMLQuery(dmlQueryTxt.getText());
                     dmlAnswerTxt.setText(answer);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     dmlAnswerTxt.setText("Failed");
                 }
             }
         });
     }
+
+        public void executeScript(DBClient dbc){
+        try {
+            if(!ddlFileChooserTxt.getText().isEmpty()){
+                File script = new File(ddlFileChooserTxt.getText());
+                List<String> commands = dbc.readScriptFromFile(script);
+                int size = commands.size();
+                for(int i =0; i<size ; i++)
+                    dbc.sendDDLQuery(commands.get(i));
+                ddlAnswerTxt.setText("Success");
+            }
+        }
+        catch (Exception e){
+            ddlAnswerTxt.setText("Failed");
+        }
+    }
+
 
 }
