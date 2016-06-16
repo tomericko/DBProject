@@ -1,4 +1,4 @@
-.btn{
+.button{
     -fx-background-color:
             linear-gradient(#6495ED, #0000EE),
             radial-gradient(center 50% -40%, radius 200%, #4876FF 45%, #3A5FCD 50%);
@@ -6,9 +6,10 @@
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
-.btn:hover{
+.button:hover{
     -fx-background-color:
             linear-gradient(#6495ED, #0000EE),
             radial-gradient(center 50% -40%, radius 200%, #0000CD 45%, #27408B 50%);
@@ -16,9 +17,10 @@
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
-.btn:pressed{
+.button:pressed{
     -fx-background-color:
             linear-gradient(#6495ED, #0000EE),
             radial-gradient(center 50% -40%, radius 200%, #27408B 45%, #000080 50%);
@@ -26,6 +28,7 @@
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
 .ddlLogo{
@@ -51,4 +54,30 @@
 .mainPane{
     -fx-background-image: url(background.jpg);
     -fx-background-size: cover;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane .tab {
+    -fx-background-color:
+            linear-gradient(#6495ED, #0000EE),
+            radial-gradient(center 50% -40%, radius 200%, #4876FF 45%, #3A5FCD 50%);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color:
+            linear-gradient(#6495ED, #0000EE),
+            radial-gradient(center 50% -40%, radius 200%, #27408B 45%, #000080 50%);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.radio-button {
+    -fx-text-fill: white;
 }
