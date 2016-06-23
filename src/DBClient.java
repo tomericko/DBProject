@@ -40,13 +40,10 @@ public class DBClient {
     /* send DML query to server and return server's result, or
      * in case of error - throw the server's exception */
     public String sendDMLQuery(String query) throws Exception {
-
+        String result = "";
         ResultSet resultSet = statement.executeQuery(query);
         ResultSetMetaData rsmd = resultSet.getMetaData();
 
-		/* set result Strin */
-
-        String result = "";
         int columnsNumber = rsmd.getColumnCount();
 
         for (int i = 1; i <= columnsNumber; i++) {
@@ -71,7 +68,6 @@ public class DBClient {
     /* send DDL query to update server's DB,
      * in case of error - throw the server's exception */
     public void sendDDLQuery(String query) throws Exception {
-
         statement.executeUpdate(query);
     }
 

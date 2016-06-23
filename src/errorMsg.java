@@ -12,10 +12,18 @@ import java.io.IOException;
 public class errorMsg implements Runnable{
     String tag;
     String msg;
+    String query;
 
     public errorMsg(String tag, String msg) {
         this.tag = tag;
         this.msg = msg;
+        this.query = null;
+    }
+
+    public errorMsg(String tag, String msg, String query) {
+        this.tag = tag;
+        this.msg = msg;
+        this.query = query;
     }
 
     public void show() {
@@ -23,7 +31,13 @@ public class errorMsg implements Runnable{
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("errorMsg.fxml"));
-            errorMsgController controller = new errorMsgController(this.tag, this.msg);
+            errorMsgController controller;
+            if(this.query == null) {
+                controller = new errorMsgController(this.tag, this.msg);
+            }
+            else {
+                controller = new errorMsgController(this.tag, this.msg, this.query);
+            }
             loader.setController(controller);
             root = (Parent) loader.load();
         } catch (IOException e) {
@@ -31,7 +45,7 @@ public class errorMsg implements Runnable{
         }
 
         stage.setTitle("Error");
-        Scene scene = new Scene(root, 250, 150);
+        Scene scene = new Scene(root, 500, 350);
         scene.getStylesheets().add(getClass().getResource("errorMsg.css").toExternalForm());
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);

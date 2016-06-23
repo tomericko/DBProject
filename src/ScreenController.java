@@ -1,10 +1,14 @@
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ErrorMsg;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -14,6 +18,7 @@ import java.util.List;
  * Created by roi on 16/06/16.
  */
 public class ScreenController {
+    enum TYPE{DDL,DML};
 
     Stage primaryStage;
 
@@ -66,7 +71,7 @@ public class ScreenController {
 
 
     @FXML
-    void initialize() {
+    void initialize() throws Exception {
         final ToggleGroup ddlTg = new ToggleGroup();
         ddlFileRadioBtn.setToggleGroup(ddlTg);
         ddlQueryRadioBtn.setToggleGroup(ddlTg);
@@ -205,18 +210,88 @@ public class ScreenController {
             }
         });
 
+        ddlFileChooserTxt.setOnDragOver(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                if (db.hasFiles()) {
+                    event.acceptTransferModes(TransferMode.COPY);
+                } else {
+                    event.consume();
+                }
+            }
+        });
+
+        // Dropping over surface
+        ddlFileChooserTxt.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasFiles()) {
+                    success = true;
+                    String filePath = null;
+                    for (File file:db.getFiles()) {
+                        filePath = file.getAbsolutePath();
+                        dmlFileChooserTxt.setText(filePath);
+                        //System.out.println(filePath);
+                    }
+                }
+                event.setDropCompleted(success);
+                event.consume();
+            }
+        });
+
+        dmlFileChooserTxt.setOnDragOver(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                if (db.hasFiles()) {
+                    event.acceptTransferModes(TransferMode.COPY);
+                } else {
+                    event.consume();
+                }
+            }
+        });
+
+        // Dropping over surface
+        dmlFileChooserTxt.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasFiles()) {
+                    success = true;
+                    String filePath = null;
+                    for (File file:db.getFiles()) {
+                        filePath = file.getAbsolutePath();
+                        dmlFileChooserTxt.setText(filePath);
+                        //System.out.println(filePath);
+                    }
+                }
+                event.setDropCompleted(success);
+                event.consume();
+            }
+        });
+
         final DBClient dbc = new DBClient();
         //DDL
         ddlSendBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (ddlFileRadioBtn.isSelected()) {
-                    executeScript(dbc);
+                    executeScript(dbc, TYPE.DDL);
                 } else {
                     try {
                         dbc.sendDDLQuery(ddlQueryTxt.getText());
                         ddlAnswerTxt.setText("Success");
                     } catch (Exception e) {
+                        if(e.getMessage().contains("syntax")) {
+                            new errorMsg("WRONG QUERY STRUCTURE", e.getMessage()).show();
+                        }
+                        else {
+                            new errorMsg("LOGICAL ERROR", e.getMessage()).show();
+                        }
                         ddlAnswerTxt.setText("Failed");
                     }
                 }
@@ -227,11 +302,21 @@ public class ScreenController {
         dmlSendBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                try {
-                    String answer = dbc.sendDMLQuery(dmlQueryTxt.getText());
-                    dmlAnswerTxt.setText(answer);
-                } catch (Exception e) {
-                    dmlAnswerTxt.setText("Failed");
+                if (ddlFileRadioBtn.isSelected()) {
+                    executeScript(dbc, TYPE.DML);
+                } else {
+                    try {
+                        String answer = dbc.sendDMLQuery(dmlQueryTxt.getText());
+                        dmlAnswerTxt.setText(answer);
+                    } catch (Exception e) {
+                        if(e.getMessage().contains("syntax")) {
+                            new errorMsg("WRONG QUERY STRUCTURE", e.getMessage()).show();
+                        }
+                        else {
+                            new errorMsg("LOGICAL ERROR", e.getMessage()).show();
+                        }
+                        dmlAnswerTxt.setText("Failed");
+                    }
                 }
             }
         });
@@ -239,14 +324,28 @@ public class ScreenController {
 
 }
 
-        public void executeScript(DBClient dbc){
+        public void executeScript(DBClient dbc, TYPE type){
         try {
             if(!ddlFileChooserTxt.getText().isEmpty()){
                 File script = new File(ddlFileChooserTxt.getText());
                 List<String> commands = dbc.readScriptFromFile(script);
                 int size = commands.size();
-                for(int i =0; i<size ; i++)
-                    dbc.sendDDLQuery(commands.get(i));
+                for(int i =0; i<size ; i++) {
+                    try {
+                        if (type == TYPE.DDL) {
+                            dbc.sendDDLQuery(commands.get(i));
+                        } else {
+                            dbc.sendDMLQuery(commands.get(i));
+                        }
+                    } catch (Exception e) {
+                        if (e.getMessage().contains("syntax")) {
+                            new errorMsg("WRONG QUERY STRUCTURE", e.getMessage(), commands.get(i)).show();
+                        } else {
+                            new errorMsg("LOGICAL ERROR", e.getMessage(), commands.get(i)).show();
+                        }
+                        return;
+                    }
+                }
                 ddlAnswerTxt.setText("Success");
             }
         }

@@ -11,11 +11,22 @@ import javafx.stage.Stage;
 public class errorMsgController {
     String tag;
     String msg;
+    String query;
 
     public errorMsgController(String tag, String msg) {
         this.tag = tag;
         this.msg = msg;
+        query = null;
     }
+
+    public errorMsgController(String tag, String msg, String query) {
+        this.tag = tag;
+        this.msg = msg;
+        this.query = query;
+    }
+
+    @FXML
+    Label lblQuery;
 
     @FXML
     Label lblError;
@@ -29,6 +40,9 @@ public class errorMsgController {
     @FXML
     void initialize(){
         titleError.setText(this.tag);
+        if(this.query != null) {
+            lblQuery.setText("Script in line:" + this.query);
+        }
         lblError.setText(this.msg);
         btnError.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -36,5 +50,9 @@ public class errorMsgController {
                 ((Stage)(btnError.getScene().getWindow())).close();
             }
         });
+        lblError.setPrefWidth(450);
+        lblError.setWrapText(true);
+        lblQuery.setPrefWidth(450);
+        lblQuery.setWrapText(true);
     }
 }
