@@ -55,7 +55,7 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" maxHeight="100.0" maxWidth="250.0" minHeight="100.0" minWidth="250.0" prefHeight="100.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                    <children>
-                                                      <TextField fx:id="ddlQueryTxt" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="276.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                      <TextField fx:id="ddlQueryTxt" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="276.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                          <GridPane.margin>
                                                             <Insets top="5.0" />
                                                          </GridPane.margin>
@@ -109,7 +109,7 @@
                                           </ImageView>
                                           <HBox maxHeight="100.0" maxWidth="345.0" minHeight="100.0" minWidth="345.0" prefHeight="100.0" prefWidth="345.0">
                                              <children>
-                                                <TextField id="ddlAnswerTxt" fx:id="ddlAnswerTxt" maxHeight="100.0" maxWidth="345.0" minHeight="100.0" minWidth="345.0" prefHeight="100.0" prefWidth="345.0" />
+                                                <TextField id="ddlAnswerTxt" fx:id="ddlAnswerTxt" alignment="TOP_LEFT" maxHeight="100.0" maxWidth="345.0" minHeight="100.0" minWidth="345.0" prefHeight="100.0" prefWidth="345.0" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -165,7 +165,7 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" maxHeight="100.0" maxWidth="250.0" minHeight="100.0" minWidth="250.0" prefHeight="100.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                    <children>
-                                                      <TextField fx:id="dmlQueryTxt" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="276.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                      <TextField fx:id="dmlQueryTxt" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="276.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                          <GridPane.margin>
                                                             <Insets top="5.0" />
                                                          </GridPane.margin>
@@ -219,7 +219,7 @@
                                           </ImageView>
                                           <HBox maxHeight="100.0" maxWidth="345.0" minHeight="100.0" minWidth="345.0" prefHeight="100.0" prefWidth="345.0">
                                              <children>
-                                                <TextField fx:id="dmlAnswerTxt" maxHeight="100.0" maxWidth="345.0" minHeight="100.0" minWidth="345.0" prefHeight="100.0" prefWidth="345.0" />
+                                                <TextField fx:id="dmlAnswerTxt" alignment="TOP_LEFT" maxHeight="100.0" maxWidth="345.0" minHeight="100.0" minWidth="345.0" prefHeight="100.0" prefWidth="345.0" />
                                              </children>
                                           </HBox>
                                        </children>

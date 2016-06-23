@@ -205,6 +205,17 @@ public class ScreenController {
             }
         });
 
+        ddlSendBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ddlQueryTxt.getText().equals(""))
+                {
+                    errorMsg msg = new errorMsg("Error!", "Query is empty.");
+                    msg.show();
+                }
+            }
+        });
+
     }
 
         public void executeScript(DBClient dbc){
