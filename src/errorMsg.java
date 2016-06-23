@@ -25,7 +25,7 @@ public class errorMsg implements Runnable{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("errorMsg.fxml"));
             errorMsgController controller = new errorMsgController(this.tag, this.msg);
             loader.setController(controller);
-            root = loader.load();
+            root = (Parent) loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -27,7 +27,7 @@ public class succesMsg implements Runnable{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("succesMsg.fxml"));
             succesMsgController controller = new succesMsgController(this.tag, this.msg);
             loader.setController(controller);
-            root = loader.load();
+            root = (Parent) loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
